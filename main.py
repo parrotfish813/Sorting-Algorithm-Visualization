@@ -3,7 +3,7 @@ import random
 import math
 pygame.init()
 
-# Stores all of the information for the window
+# Stores the information for the window
 class DrawInformation:
     BLACK = 0, 0, 0
     WHITE = 255, 255, 255
