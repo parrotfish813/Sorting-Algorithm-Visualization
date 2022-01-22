@@ -48,7 +48,7 @@ def draw(draw_info, algo_name, ascending):
     controls = draw_info.FONT.render("R - Reset | SPACE - Start Soring | A - Ascending | D - Descending", 1, draw_info.BLACK)
     draw_info.window.blit(controls, (draw_info.width/2 - controls.get_width()/2 , 45))
 
-    sorting = draw_info.FONT.render("I - Insertion Sort | B - Bubble Sort", 1, draw_info.BLACK)
+    sorting = draw_info.FONT.render("I - Insertion Sort | B - Bubble Sort | S - Selection Sort", 1, draw_info.BLACK)
     draw_info.window.blit(sorting, (draw_info.width / 2 - sorting.get_width() / 2, 75))
 
     draw_list(draw_info)
@@ -112,6 +112,34 @@ def insertion_sort(draw_info, ascending=True):
             lst[i] = lst[i - 1]
             i = i - 1
             lst[i] = current
+            draw_list(draw_info, {i: draw_info.GREEN, i - 1: draw_info.RED}, True)
+            yield True
+
+    return lst
+
+
+def selection_sort(draw_info, ascending=True):
+    lst = draw_info.lst
+
+    if ascending:
+        for i in range(len(lst)):
+            min_idx = i;
+            for j in range(i + 1, len(lst)):
+                if lst[min_idx] > lst[j]:
+                    min_idx = j;
+
+            lst[i], lst[min_idx] = lst[min_idx], lst[i]
+            draw_list(draw_info, {i: draw_info.GREEN, i - 1: draw_info.RED}, True)
+            yield True
+
+    if ascending == False:
+        for i in range(len(lst)):
+            max_idx = i
+            for j in range(i + 1, len(lst)):
+                if lst[j] > lst[max_idx]:
+                    max_idx = j
+
+            lst[i], lst[max_idx] = lst[max_idx], lst[i]
             draw_list(draw_info, {i: draw_info.GREEN, i - 1: draw_info.RED}, True)
             yield True
 
@@ -181,6 +209,10 @@ def main():
             elif event.key == pygame.K_b and not sorting:
                 sorting_algorithm = bubble_sort
                 sorting_algo_name = "Bubble Sort"
+
+            elif event.key == pygame.K_s and not sorting:
+                sorting_algorithm = selection_sort
+                sorting_algo_name = "Selection Sort"
 
     pygame.quit()
 
