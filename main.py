@@ -78,7 +78,7 @@ def draw_list(draw_info, color_positions={}, clear_bg=False):
     if clear_bg:
       pygame.display.update()
 
-# Creats the list based off the provided paramiters
+# Creates the list based off the provided parameters
 def generate_starting_list(n, min_val, max_val):
     lst = []
 
